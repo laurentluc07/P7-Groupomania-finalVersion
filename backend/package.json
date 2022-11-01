@@ -1,0 +1,38 @@
+{
+  "name": "backend-groupomania",
+  "version": "1.0.0",
+  "description": "api rest for project social network",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node js",
+    "express js",
+    "mysql",
+    "sequelize"
+  ],
+  "author": "Laurent Luc",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "email-validator": "^2.0.4",
+    "express": "^4.18.1",
+    "helmet": "^5.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^2.3.3",
+    "npm": "^8.13.1",
+    "password-validator": "^5.3.0",
+    "sequelize": "^6.21.6"
+  },
+  "devDependencies": {
+    "eslint": "^8.23.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.19",
+    "prettier": "^2.7.1"
+  }
+}
