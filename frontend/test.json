@@ -1,0 +1,30 @@
+[
+  {
+    "id":2,
+    "description":"Hey we are on Groupomania social network",
+    "image":"image_1664803120217.jpg",
+    "like":0,
+    "status":false,
+    "createdAt":"2022-10-03T13:18:40.000Z",
+    "updatedAt":"2022-10-03T13:18:40.000Z",
+    "UserId":5,
+    "User": {
+      "name":"noriane",
+      "isAdmin":"user"
+    }
+  },
+  {
+    "id":1,
+    "description":"Hello World ",
+    "image":"image_1664803012396.png",
+    "like":0,
+    "status":false,
+    "createdAt":"2022-10-03T13:16:52.000Z",
+    "updatedAt":"2022-10-03T13:16:52.000Z",
+    "UserId":5,
+    "User": {
+      "name":"noriane",
+      "isAdmin":"user"
+    }
+  }
+]
