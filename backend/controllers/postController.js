@@ -76,13 +76,48 @@ const modifyPost = (req, res) => {
       const message = "La mise à jour de cet article est indisponible pour le moment";
       res.status(500).json({ message, data: error });
     });
+  // User.findByPk(userToken)
+  // .then((user) => {
+  //   if(user.id == userToken){
+  //     Post.findOne({
+  //       attributes: ["id", "description", "UserId"],
+  //       where: { id: idPost }
+  //     })
+  //     .then((post) => {
+  //       console.log(post)
+  //       const userId = post.UserId;
+  //       console.log(userId + "===================="+ userToken)
+  //       console.log("=============USERADMIN============"+ user.isAdmin)
+  //       if (userId == userToken || user.isAdmin == "Administrateur") {
+  //         post.update({
+  //           description: description
+  //         })
+  //           .then((postUpdate) => {
+  //             const message = `Votre article a bien été mis à jour`;
+  //             res.status(200).json({ message, data: postUpdate });
+  //           })
+  //           .catch((error) => {
+  //             const message = `Echec de la mise à jour de votre article ${idPost}`;
+  //             res.status(400).json({ message, data: error });
+  //           })
+  //       } else {
+  //         res.status(404).json({ message: "Vous ne disposez pas des droits pour modifier cet article" });
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       const message = "La mise à jour de cet article est indisponible pour le moment";
+  //       res.status(500).json({ message, data: error });
+  //     });
+  //   }
+  // })
+  // .catch((error) => {})
+  //     const message = "Vous ne disposez pas des droits pour cette article"
 };
 //============================================================================
 // * RECUPERATION DE L'ENSEMBLE DES POSTS (GET)          /api/post/getAllposts
 //============================================================================
 
 const getAllPosts = async (req, res) => {
-  console.log(Post);
   Post.findAll({
     include: [
       {

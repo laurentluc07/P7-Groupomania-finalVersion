@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { deletePostRequest, gestionLike, getAllLike, getAllPosts, getLike } from '../services/api';
 import { useAtom } from 'jotai';
-import { tokenAtom, postAtom } from '../stores/store';
+import { tokenAtom, postAtom, userAtom } from '../stores/store';
 import { useRouter } from 'next/router';
 import { HandThumbUpIcon, ChatBubbleLeftEllipsisIcon, ShareIcon, HeartIcon, EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
@@ -10,6 +10,7 @@ import Like from './Like';
 import moment from 'moment';
 import PostCommentForm from './PostCommentForm';
 import PostComment from './PostComment';
+import ModalEditPost from './ModalEditPost';
 
 
 const Post: React.FC<{ post: any }> = ({ post }) => {
@@ -19,6 +20,7 @@ const Post: React.FC<{ post: any }> = ({ post }) => {
   const [like, setLike] = useState(post.like)
   const [posts, setPosts] = useAtom(postAtom)
   const [postBooleanLike, setPostBooleanLike] = useState(false)
+  const [user, setUser] = useAtom(userAtom)
 
   useEffect(() => {
     async function fetchDataLike() {
@@ -51,8 +53,21 @@ const Post: React.FC<{ post: any }> = ({ post }) => {
     await fetchDataPosts();
   }
 
+  // const [allLikes, setAllLikes] = useState([])
+
+  // useEffect(() => {
+  //   async function fetchAllLikes() {
+  //     const data = await getAllLike(token as string);
+  //     setAllLikes(data)
+  //   }
+  //   fetchAllLikes();
+  // }, [setAllLikes, token])
+
+  // console.log(allLikes);
+
   const [openComment, setOpenComment] = useState(false)
   const [openModifPosts, setOpenModifPosts] = useState(false)
+  const [openModalModifPosts, setOpenModalModifPosts] = useState(false)
 
   return (
     <div className="w-full shadow h-auto bg-white rounded-md">
@@ -67,17 +82,26 @@ const Post: React.FC<{ post: any }> = ({ post }) => {
           </span>
         </div>
         <div className="w-6 h-6 relative">
-          <button onClick={() => setOpenModifPosts(!openModifPosts)} className=" w-full h-full hover:bg-gray-100 rounded-full text-gray-400 focus:outline-none">
-            <EllipsisVerticalIcon />
-          </button>
+          {post.UserId === user?.id || user?.isAdmin === 'Administrateur' ? (
+            <button onClick={() => setOpenModifPosts(!openModifPosts)} className=" w-full h-full hover:bg-gray-100 rounded-full text-gray-400 focus:outline-none">
+              <EllipsisVerticalIcon />
+            </button>
+          ) : null}
           {openModifPosts ? (
             <div className="absolute right-0 border border-gray-100 rounded-md bg-white shadow-lg overflow-hidden z-20">
-              <p className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200 w-full cursor-pointer">Modifier</p>
-              <p onClick={() => deletePost(post.id)} className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200 w-full cursor-pointer">Supprimer</p>
+              {post.UserId === user?.id ? (
+                <p onClick={() => setOpenModalModifPosts(!openModalModifPosts)} className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200 w-full cursor-pointer">Modifier</p>
+              ) : null}
+              {post.UserId === user?.id || user?.isAdmin === 'Administrateur' ? (
+                <p onClick={() => deletePost(post.id)} className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200 w-full cursor-pointer">Supprimer</p>
+              ) : null}
             </div>
           ) : null}
         </div>
       </div>
+      {openModalModifPosts ? (
+        <ModalEditPost open={openModalModifPosts} fetchDataPosts={fetchDataPosts} setOpen={setOpenModalModifPosts} post={post} token={token} />
+      ) : null}
       {post.description ? (
         <div className="mb-1">
           <p className="text-gray-700 max-h-10 truncate px-3 text-sm">

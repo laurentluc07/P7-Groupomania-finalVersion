@@ -49,6 +49,20 @@ export const editProfileRequest = async (data: any, token: string): Promise<any>
   }
   return response.json()
 }
+export const editPostRequest = async (data: any, token: string, id: number): Promise<any> => {
+  const response = await fetch(`${local_api_url}api/post/modifyPost/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `${token}`
+    },
+    body: JSON.stringify(data)
+  })
+  if (!response.ok) {
+    throw Error('Failed To Edit Your Post !');
+  }
+  return response.json()
+}
 
 export const newPostRequest = async (data: any, token: string): Promise<any> => {
   let formData = new FormData()
@@ -64,6 +78,36 @@ export const newPostRequest = async (data: any, token: string): Promise<any> => 
   })
   if (!response.ok) {
     throw Error('Failed To Create NewPost !');
+  }
+  return response.json()
+}
+
+export const commentPostRequest = async (data: object, token: string, id: number): Promise<any> => {
+  const response = await fetch(`${local_api_url}api/comment/createcomment/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `${token}`
+    },
+    body: JSON.stringify(data)
+  })
+  if (!response.ok) {
+    throw Error('Failed To signup !');
+  }
+  return response.json()
+}
+
+export const deletePostRequest = async (token: string, id: number): Promise<any> => {
+  const response = await fetch(`${local_api_url}api/post/deletePost/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `${token}`
+    },
+    // body: JSON.stringify(data)
+  })
+  if (!response.ok) {
+    throw Error('Failed To signup !');
   }
   return response.json()
 }
@@ -111,34 +155,6 @@ export const getAllLike = async (token: string) => {
 }
 
 
-export const commentPostRequest = async (data: object, token: string, id: number): Promise<any> => {
-  const response = await fetch(`${local_api_url}api/comment/createcomment/${id}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `${token}`
-    },
-    body: JSON.stringify(data)
-  })
-  if (!response.ok) {
-    throw Error('Failed To signup !');
-  }
-  return response.json()
-}
 
-export const deletePostRequest = async (token: string, id: number): Promise<any> => {
-  const response = await fetch(`${local_api_url}api/post/deletePost/${id}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `${token}`
-    },
-    // body: JSON.stringify(data)
-  })
-  if (!response.ok) {
-    throw Error('Failed To signup !');
-  }
-  return response.json()
-}
 
 // /api/comment/createcomment/:idpost
