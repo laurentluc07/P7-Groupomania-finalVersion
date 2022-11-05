@@ -11,38 +11,6 @@ interface UserAccount {
   isAdmin: string
 }
 
-// [
-//   {
-//     id: number,
-//     description: string,
-//     image: string,
-//     like: number,
-//     status: boolean,
-//     createdAt: string,
-//     updatedAt: string,
-//     UserId: number,
-//     User: {
-//       firstName: string,
-//       lastName: string,
-//       isAdmin: string,
-//       profilePicture: string
-//     },
-//     comments: [
-//       {
-//         id: number,
-//         content: string,
-//         status: string,
-//         createdAt: string,
-//         updatedAt: string,
-//         UserId: number,
-//         postId: number,
-//         User: {
-//           firstName: string
-//         }
-//       }
-//     ]
-//   }
-// ]
 
 export interface Post {
   id: number,
@@ -90,3 +58,15 @@ export const postAtom = atom<Post[]>([])
 // export const likeAtom = atom<Like | null>(null)
 
 export const likeAtom = atom(0)
+
+// export const postTestAtom = atom(async (get) => {
+//   const token = get(tokenAtom)
+//   const response = await fetch('http://localhost:3000/api/post/getAllPosts', {
+//     method: 'GET',
+//     headers: {
+//       'Authorization': `${token}`
+//     },
+//   })
+//   return response.json();
+//   // console.log(data)
+// })

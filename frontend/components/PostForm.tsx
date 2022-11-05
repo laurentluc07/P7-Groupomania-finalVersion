@@ -1,21 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useRef } from 'react'
-import { newPostRequest } from "../services/api";
+import React, { useRef } from 'react'
+import { getAllPosts, newPostRequest } from "../services/api";
 import { useRouter } from "next/router";
 import Image from 'next/image';
-import { Fragment, useState } from 'react'
-import {
-  FaceFrownIcon,
-  FaceSmileIcon,
-  FireIcon,
-  HandThumbUpIcon,
-  HeartIcon,
-  PaperClipIcon,
-  XMarkIcon,
-} from '@heroicons/react/20/solid'
-// import { FaceSmileIconOutline } from '@heroicons/react/24/outline';
-import { Listbox, Transition } from '@headlessui/react'
-import classNames from 'classnames'
+import { useState } from 'react'
+import { PaperClipIcon } from '@heroicons/react/20/solid'
 import { postAtom, tokenAtom, userAtom } from '../stores/store';
 import { useAtom } from 'jotai';
 
@@ -30,34 +19,28 @@ const PostForm: React.FC = () => {
   const inputDescription = useRef<HTMLInputElement>(null);
   const inputImage = useRef<HTMLInputElement>(null);
 
-  const [newPost, setNewPost] = useState({ description: '', image: '' })
-
   const submitNewPost = async (e: any) => {
     e.preventDefault();
-    // e.stopPropagation();
-    // console.log(e.target)
-    // window.location.reload(false);
 
     const dataNewPost = {
       description: inputDescription.current?.value,
       image: inputImage.current?.files[0]
     }
-
+    async function fetchDataPosts() {
+      const allPosts = await getAllPosts(token as string);
+      setPosts(allPosts)
+    }
     try {
       if (!token) {
         router.push('/login')
       } else {
-        const data = await newPostRequest(dataNewPost, token);
-        console.log(data)
-
+        await newPostRequest(dataNewPost, token);
+        await fetchDataPosts();
       }
     } catch (error) {
       console.log(error?.message)
     }
   }
-  // console.log(posts);
-
-
 
   return (
     <div className={`${router.pathname != '/profile' ? 'mx-6 md:mx-16 lg:mx-32' : 'mx-0'} flex items-start space-x-4 p-4  border rounded-md shadow`}>
@@ -81,7 +64,6 @@ const PostForm: React.FC = () => {
               id="comment"
               className="block w-full resize-none border-0 border-b border-transparent p-0 pb-2 focus:border-gray-600 focus:ring-0 sm:text-sm text-gray-500"
               placeholder={`What's on your mind, ${user?.firstName}?`}
-            // defaultValue={`What's on your mind, ${user?.firstName}?`}
             />
           </div>
           <div className="flex justify-between item-center pt-2">
@@ -101,14 +83,6 @@ const PostForm: React.FC = () => {
                   </div>
                 </div>
                 <p className=" text-gray-500 ml-2">Select your photo</p>
-                {/* <input
-                  id="post_image"
-                  type='file'
-                  // accept='.jpg, .jpeg, .png'
-                  accept='jpg,jpeg,png,gif'
-                  ref={inputImage}
-                // onChange={(e) => { console.log(inputImage.current?.files[0].name) }}
-                /> */}
               </div>
 
             </div>

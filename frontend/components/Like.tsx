@@ -17,7 +17,6 @@ const Like: React.FC<LikeProps> = ({ toggleLike, postBooleanLike }) => {
   const [token, setToken] = useAtom(tokenAtom)
   const router = useRouter();
 
-
   return (
     <>
       <div
@@ -25,8 +24,8 @@ const Like: React.FC<LikeProps> = ({ toggleLike, postBooleanLike }) => {
         onClick={toggleLike}
       >
         <HandThumbUpIcon
-          stroke={postBooleanLike == true ? '#1b74e4' : 'gray'}
-          fill={postBooleanLike == true ? '#1b74e4' : 'white'}
+          stroke={postBooleanLike ? '#1b74e4' : 'gray'}
+          fill={postBooleanLike ? '#1b74e4' : 'white'}
           className='h-6 w-6 mx-2 text-gray-500'
         />
         <p className={`${postBooleanLike == true ? 'text-bluefb' : 'text-gray-500'} font-semibold`}>J&apos;aime</p>
