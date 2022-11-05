@@ -24,7 +24,7 @@ const ProfilePage: React.FC = () => {
       setPostsByUserId(dataByUserId)
     }
     if (!token) {
-      router.push('/login')
+      router.push('/')
     } else {
       fetchDataPosts();
     }

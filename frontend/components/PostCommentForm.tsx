@@ -22,7 +22,7 @@ const PostCommentForm: React.FC<PostCommentFormProps> = ({ postId }) => {
 
     try {
       if (!token) {
-        router.push('/login')
+        router.push('/')
       } else {
         const data = await commentPostRequest(dataNewComment, token, postId);
         console.log(data)

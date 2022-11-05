@@ -1,10 +1,10 @@
 import React from 'react';
 import LoginPage from '../components/Login';
 
-const Login: React.FC = () => {
+const App: React.FC = () => {
   return (
     <LoginPage />
   )
 }
 
-export default Login;
+export default App;

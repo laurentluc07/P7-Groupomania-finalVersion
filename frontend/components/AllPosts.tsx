@@ -19,7 +19,7 @@ const AllPost: React.FC = () => {
       setPosts(allPosts)
     }
     if (!token) {
-      router.push('/login')
+      router.push('/')
     } else {
       fetchDataPosts();
     }

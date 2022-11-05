@@ -32,7 +32,7 @@ const PostForm: React.FC = () => {
     }
     try {
       if (!token) {
-        router.push('/login')
+        router.push('/')
       } else {
         await newPostRequest(dataNewPost, token);
         await fetchDataPosts();

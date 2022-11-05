@@ -33,7 +33,7 @@ const AllPost: React.FC = () => {
     //   // setLike(likePosts)
     // }
     if (!token) {
-      router.push('/login')
+      router.push('/')
     } else {
       fetchDataPosts();
       // fetchLikePosts();

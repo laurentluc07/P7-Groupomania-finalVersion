@@ -42,7 +42,7 @@ const Navbar: React.FC<Props> = ({ children }) => {
       setUser(userAccount)
     }
     if (!token) {
-      router.push('/login')
+      router.push('/')
     } else {
       fetchUserAccount();
     }

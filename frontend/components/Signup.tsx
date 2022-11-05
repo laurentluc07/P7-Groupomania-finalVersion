@@ -33,7 +33,7 @@ const Signup: React.FC = () => {
       const data = await signupRequest(dataUser);
       console.log(data)
       // setToken(data.TOKEN)
-      router.push('/login')
+      router.push('/')
     } catch (error) {
       console.log(error)
     }
@@ -108,7 +108,7 @@ const Signup: React.FC = () => {
 
                   <div className='flex items-center space-x-3'>
                     <p className='text-sm'>You are a member ?</p>
-                    <Link href="/login">
+                    <Link href="/">
                       <a className="underline text-sm">Login</a>
                     </Link>
                   </div>
