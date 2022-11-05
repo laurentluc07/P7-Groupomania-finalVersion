@@ -52,9 +52,9 @@ const getLikeBypostUser = (req, res) => {
   Like.findOne({ where: { userId: userToken, postId: id } })
     .then((like) => {
       if (like) {
-        res.status(200).json({ message: "L'utilisateur aime ce post" });
+        res.status(200).json({ message: "L'utilisateur aime ce post", hasLike: true });
       } else {
-        res.status(200).json({ message: "L'utilisateur n'aime pas encore ce post" });
+        res.status(200).json({ message: "L'utilisateur n'aime pas encore ce post", hasLike: false });
       }
     })
     .catch((error) => {
