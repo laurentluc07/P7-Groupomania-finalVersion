@@ -1,28 +1,31 @@
-import { Fragment, useRef, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { CheckIcon } from '@heroicons/react/24/outline'
-import { editProfileRequest } from '../services/api';
+import { useRef } from 'react'
+import { editProfileRequest, getUserAccount } from '../services/api';
+import { useAtom } from 'jotai';
+import { userAtom } from '../stores/store';
 
 interface ModalEditProfileProps {
   open: boolean;
   setOpen: (isOpen: boolean) => void;
-  user: any
-  token: string
+  user: any;
+  token: string | null;
 }
 
 const ModalEditProfile: React.FC<ModalEditProfileProps> = ({ open, setOpen, user, token }) => {
 
-  // const cancelButtonRef = useRef(null);
   const inputFirstName = useRef<HTMLInputElement>(null);
   const inputLastName = useRef<HTMLInputElement>(null);
   const inputEmail = useRef<HTMLInputElement>(null);
   const inputOccupation = useRef<HTMLInputElement>(null);
 
+  const [, setUser] = useAtom(userAtom)
+
+  async function fetchUserAccount() {
+    const userAccount = await getUserAccount(token as string);
+    setUser(userAccount)
+  }
+
   const submitEditProfile = async (e: any) => {
     e.preventDefault();
-    // e.stopPropagation();
-    // console.log(e)
-    // editProfileRequest
     const newDataProfilePost = {
       firstName: inputFirstName.current?.value,
       lastName: inputLastName.current?.value,
@@ -30,10 +33,9 @@ const ModalEditProfile: React.FC<ModalEditProfileProps> = ({ open, setOpen, user
       occupation: inputOccupation.current?.value,
     }
     try {
-      const data = await editProfileRequest(newDataProfilePost, token);
-      console.log(data)
-      // setToken(data.TOKEN)
-      // router.push('/post')
+      const data = await editProfileRequest(newDataProfilePost, token as string);
+      console.log(data);
+      await fetchUserAccount();
     } catch (error) {
       console.log(error)
     }
@@ -49,8 +51,6 @@ const ModalEditProfile: React.FC<ModalEditProfileProps> = ({ open, setOpen, user
             <div className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
               <div className='space-y-2'>
                 <h1 className='text-center font-semibold text-gray-600 text-lg'>Edit Profile</h1>
-
-
                 <form role="form" className='space-y-4' onSubmit={submitEditProfile}>
                   <div>
                     <input
@@ -59,6 +59,7 @@ const ModalEditProfile: React.FC<ModalEditProfileProps> = ({ open, setOpen, user
                       ref={inputFirstName}
                       className="block w-full rounded-md border-gray-500 pr-10 text-gray-900 placeholder-gray-600 focus:border-gray-500 focus:outline-none focus:ring-gray-500 sm:text-sm"
                       placeholder="First Name"
+                      defaultValue={user.firstName}
                     />
                   </div>
                   <div>
@@ -68,6 +69,7 @@ const ModalEditProfile: React.FC<ModalEditProfileProps> = ({ open, setOpen, user
                       ref={inputLastName}
                       className="block w-full rounded-md border-gray-500 pr-10 text-gray-900 placeholder-gray-600 focus:border-gray-500 focus:outline-none focus:ring-gray-500 sm:text-sm"
                       placeholder="Last Name"
+                      defaultValue={user.lastName}
                     />
                   </div>
                   <div>
@@ -77,6 +79,7 @@ const ModalEditProfile: React.FC<ModalEditProfileProps> = ({ open, setOpen, user
                       ref={inputOccupation}
                       className="block w-full rounded-md border-gray-500 pr-10 text-gray-900 placeholder-gray-600 focus:border-gray-500 focus:outline-none focus:ring-gray-500 sm:text-sm"
                       placeholder="Occupation"
+                      defaultValue={user.occupation}
                     />
                   </div>
 
@@ -87,6 +90,7 @@ const ModalEditProfile: React.FC<ModalEditProfileProps> = ({ open, setOpen, user
                       ref={inputEmail}
                       className="block w-full rounded-md border-gray-500 pr-10 text-gray-900 placeholder-gray-600 focus:border-gray-500 focus:outline-none focus:ring-gray-500 sm:text-sm"
                       placeholder="you@example.com"
+                      defaultValue={user.email}
                     />
                   </div>
                   <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
