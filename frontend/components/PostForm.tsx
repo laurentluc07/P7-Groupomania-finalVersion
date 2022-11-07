@@ -47,8 +47,8 @@ const PostForm: React.FC = () => {
       <div className="flex-shrink-0">
         <img
           className="inline-block h-10 w-10 rounded-full"
-          src="https://random.imagecdn.app/200/200"
-          alt=""
+          src={user?.profilePicture}
+          alt={user?.firstName}
         />
       </div>
       <div className="min-w-0 flex-1">
