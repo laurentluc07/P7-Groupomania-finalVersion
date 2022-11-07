@@ -35,6 +35,7 @@ const ModalEditProfile: React.FC<ModalEditProfileProps> = ({ open, setOpen, user
     try {
       const data = await editProfileRequest(newDataProfilePost, token as string);
       console.log(data);
+      setOpen(!open);
       await fetchUserAccount();
     } catch (error) {
       console.log(error)

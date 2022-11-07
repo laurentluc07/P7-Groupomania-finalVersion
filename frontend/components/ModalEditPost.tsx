@@ -22,6 +22,7 @@ const ModalEditPost: React.FC<ModalEditPostProps> = ({ open, setOpen, fetchDataP
     try {
       const data = await editPostRequest(newDataProfilePost, token as string, post.id);
       console.log(data);
+      setOpen(!open);
       await fetchDataPosts();
     } catch (error) {
       console.log(error)
