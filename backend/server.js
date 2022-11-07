@@ -48,7 +48,7 @@ app.get("/", (req, res, next) => {
 
 //Portc
 
-const PORT = process.env.SRV_PORT || 3000;
+const PORT = process.env.SRV_PORT;
 
 // Server
 
