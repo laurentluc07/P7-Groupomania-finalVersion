@@ -1,11 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState, useRef } from 'react'
-import { tokenAtom } from '../stores/store';
-import { useRouter } from "next/router";
-import { useAtom } from 'jotai';
-import Image from 'next/image';
+import React from 'react'
 import { HandThumbUpIcon } from '@heroicons/react/24/outline';
-import { useUpdateAtom } from 'jotai/utils';
 
 interface LikeProps {
   toggleLike: () => void;
@@ -13,9 +7,6 @@ interface LikeProps {
 }
 
 const Like: React.FC<LikeProps> = ({ toggleLike, postBooleanLike }) => {
-
-  const [token, setToken] = useAtom(tokenAtom)
-  const router = useRouter();
 
   return (
     <>
