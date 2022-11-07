@@ -10,7 +10,6 @@ import PostForm from './PostForm';
 import Image from 'next/image';
 
 const ProfilePage: React.FC = () => {
-  const [postsView, setPostsView] = useState('listView');
   const [user, setUser] = useAtom(userAtom);
   const [token, setToken] = useAtom(tokenAtom)
   const router = useRouter();
