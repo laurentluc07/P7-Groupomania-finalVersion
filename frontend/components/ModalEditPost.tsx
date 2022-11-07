@@ -1,7 +1,5 @@
 import { useRef } from 'react'
-import { editPostRequest, editProfileRequest, getUserAccount } from '../services/api';
-import { useAtom } from 'jotai';
-import { userAtom } from '../stores/store';
+import { editPostRequest } from '../services/api';
 
 interface ModalEditPostProps {
   open: boolean;

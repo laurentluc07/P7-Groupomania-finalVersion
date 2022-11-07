@@ -17,10 +17,10 @@ const Navbar: React.FC<Props> = ({ children }) => {
   const router = useRouter();
 
   const navigation = [
-    { name: 'Dashboard', href: '#', current: true },
-    { name: 'Team', href: '#', current: false },
-    { name: 'Projects', href: '#', current: false },
-    { name: 'Calendar', href: '#', current: false },
+    { name: 'Dashboard', href: '/post', current: true },
+    // { name: 'Team', href: '#', current: false },
+    // { name: 'Projects', href: '#', current: false },
+    // { name: 'Calendar', href: '#', current: false },
   ]
   const userNavigation = [
     { name: 'Your Profile', href: '/profile' },
@@ -224,20 +224,7 @@ const Navbar: React.FC<Props> = ({ children }) => {
 
         <div className={`${router.pathname != '/post' ? 'py-2' : 'py-10'} z-0`}>
           {children}
-          {/* <header>
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">Dashboard</h1>
-            </div>
-          </header>
-          <main>
-            <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-              Replace with your content
-              <div className="px-4 py-8 sm:px-0">
-                <div className="h-96 rounded-lg border-4 border-dashed border-gray-200" />
-              </div>
-              /End replace
-            </div>
-          </main> */}
+
         </div>
       </div>
     </>
