@@ -27,7 +27,7 @@ const AllPost: React.FC = () => {
 
   return (
     <div className="mt-4 w-full h-full">
-      <div className='mx-22 space-y-6'>
+      <div className='mx-2 md:mx-22 space-y-6'>
         <PostForm />
         {posts.length ? (
           posts.map((post) => <Posts key={post.id} post={post} />)
