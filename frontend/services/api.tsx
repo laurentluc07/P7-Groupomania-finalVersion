@@ -92,7 +92,7 @@ export const commentPostRequest = async (data: object, token: string, id: number
     body: JSON.stringify(data)
   })
   if (!response.ok) {
-    throw Error('Failed To signup !');
+    throw Error('Failed To post Comment !');
   }
   return response.json()
 }
@@ -104,10 +104,22 @@ export const deletePostRequest = async (token: string, id: number): Promise<any>
       'Content-Type': 'application/json',
       'Authorization': `${token}`
     },
-    // body: JSON.stringify(data)
   })
   if (!response.ok) {
-    throw Error('Failed To signup !');
+    throw Error('Failed To delete post !');
+  }
+  return response.json()
+}
+export const deleteCommentRequest = async (token: string, id: number): Promise<any> => {
+  const response = await fetch(`${local_api_url}api/comment/deleteComment/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `${token}`
+    },
+  })
+  if (!response.ok) {
+    throw Error('Failed To delete comment !');
   }
   return response.json()
 }
@@ -153,8 +165,3 @@ export const gestionLike = async (token: string, id: number) => {
 export const getAllLike = async (token: string) => {
   return requestApi(`${local_api_url}api/like/getAllLikes`, token)
 }
-
-
-
-
-// /api/comment/createcomment/:idpost

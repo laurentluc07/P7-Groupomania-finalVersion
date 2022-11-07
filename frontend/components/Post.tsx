@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { deletePostRequest, gestionLike, getAllLike, getAllPosts, getLike } from '../services/api';
+import { deleteCommentRequest, deletePostRequest, gestionLike, getAllLike, getAllPosts, getLike } from '../services/api';
 import { useAtom } from 'jotai';
 import { tokenAtom, postAtom, userAtom } from '../stores/store';
 import { useRouter } from 'next/router';
@@ -50,6 +50,15 @@ const Post: React.FC<{ post: any }> = ({ post }) => {
       return;
     }
     await deletePostRequest(token as string, id)
+    await fetchDataPosts();
+  }
+
+  const deleteComment = async (id: number) => {
+    const isConfirm = window.confirm("Êtes-vous sûrs de supprimer le commentaire?")
+    if (!isConfirm) {
+      return;
+    }
+    await deleteCommentRequest(token as string, id)
     await fetchDataPosts();
   }
 
@@ -163,7 +172,16 @@ const Post: React.FC<{ post: any }> = ({ post }) => {
                 </div>
                 <PostCommentForm postId={post.id} />
               </div>
-              {post.comments.map((comment: any) => <PostComment key={comment.id} postId={post.id} comment={comment} profilePicture={post.User?.profilePicture} />)}
+              {post.comments.map((comment: any) =>
+                <PostComment
+                  deleteComment={() => deleteComment(comment.id)}
+                  key={comment.id}
+                  postId={post.id}
+                  userId={user?.id}
+                  comment={comment}
+                  profilePicture={post.User?.profilePicture}
+                />
+              )}
             </>
           ) : (
             <div className="flex w-full space-x-2 py-4">

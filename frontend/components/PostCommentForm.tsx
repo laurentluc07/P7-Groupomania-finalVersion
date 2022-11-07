@@ -1,8 +1,8 @@
 import React, { useRef } from 'react'
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/router';
-import { tokenAtom } from '../stores/store';
-import { commentPostRequest } from '../services/api';
+import { postAtom, tokenAtom } from '../stores/store';
+import { commentPostRequest, getAllPosts } from '../services/api';
 
 interface PostCommentFormProps {
   postId: number
@@ -13,8 +13,15 @@ const PostCommentForm: React.FC<PostCommentFormProps> = ({ postId }) => {
   const inputComment = useRef<HTMLInputElement>(null);
   const [token, setToken] = useAtom(tokenAtom)
 
+  const [posts, setPosts] = useAtom(postAtom)
+
+  async function fetchDataPosts() {
+    const allPosts = await getAllPosts(token as string);
+    setPosts(allPosts)
+  }
+
   const submitNewComment = async (e: any) => {
-    // e.preventDefault();
+    e.preventDefault();
 
     const dataNewComment = {
       content: inputComment.current?.value,
@@ -26,7 +33,7 @@ const PostCommentForm: React.FC<PostCommentFormProps> = ({ postId }) => {
       } else {
         const data = await commentPostRequest(dataNewComment, token, postId);
         console.log(data)
-
+        fetchDataPosts();
       }
     } catch (error) {
       console.log(error?.message)
